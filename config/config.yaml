@@ -1,0 +1,32 @@
+# Sample configuration
+samples:
+    m12: ["reads/m12_R1.fastq.gz", "reads/m12_R2.fastq.gz"]
+
+# Organism-specific settings
+organism:
+    type: "bacteria"  # Options: "bacteria" or "mollicutes"
+    genetic_code: 11  # Default bacterial code. Use 4 for Mycoplasma
+    busco_lineage: "bacteria_odb10"  # Alternative: mollicutes_odb10
+
+# Resources
+resources:
+    max_cores: "import multiprocessing as mp; print(int(mp.cpu_count()/2))"
+    max_memory_gb: "import psutil; print(int(psutil.virtual_memory().total/1024/1024/1024/2))"
+
+# QC parameters
+fastqc:
+    threads: 2
+
+# Trimming parameters
+bbduk:
+    threads: 4
+    memory: "8G"
+    qual: 30        # Q30 quality threshold
+    min_len: 20     # Minimum length 20bp
+    qtrim: "rl"     # Trim both right and left sides
+    trimq: 30       # Quality score to trigger trimming
+
+# MultiQC parameters
+multiqc:
+    threads: 1
+    output_dir: "results/qc/multiqc"
